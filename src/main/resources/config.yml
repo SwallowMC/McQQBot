@@ -1,0 +1,77 @@
+# 仅提供充值机器人的相关功能 如果你还想让机器人实现更多功能 请自行开发
+# 开源地址: https://gitee.com/msg_dw/mczf-qqbot
+
+# 全局配置
+global:
+  # 日志类型 none为不记录日志 file记录文件日志 console控制台日志(特别刷屏 调试稳定后建议更换成file日志 当然也可以不记录日志)
+  logger-type: console
+
+# 机器人QQ账号密码配置在本地
+
+# QQ群配置 (你必须在平台的控制台配置QQ群号 以便动态获取 同时保证机器人账号已加群)
+qq-group:
+  # 氪金功能 例: 充值 <玩家名> <支付方式> <支付金额> (可以购买礼包 请自行修改所有相关文本提示)
+  krypton-gold:
+    # 启用
+    enable: true
+    # 标识符
+    identifier: ['充值','氪金','cz', '充钱']
+    # 使用方式 接收到不正确不正确的格式后回复的文本
+    usage: |
+      充值 <玩家名> <支付方式> <支付金额>
+      可用支付方式 [QQ钱包, 微信支付, 支付宝]
+    # 定义支付方式
+    pay-type:
+      # QQ
+      qq: ['QQ钱包','qq钱包','QQ','qq']
+      # 微信
+      wx: ['微信','wx','微信支付','wechat']
+      # 支付宝
+      zfb: ["支付宝", "zfb", "alipay"]
+
+  # 充值通知 游戏内发货同时也给Q群发送一条通知
+  pay-notify:
+    # 启用
+    enable: true
+    # 通知信息
+    message: |  #多行文本 使用 | 符
+      -----  -----
+      %info%
+      -----  -----
+
+
+  # 定制回复 (你可以添加更多的定制回复)
+  customize-reply:
+    # 充值排行
+    pay-rank:
+      # 标识符是Ａｐ
+      identifier: ['充值榜','充值排行','充值排行榜','氪金榜','氪金排行','氪金排行榜','土豪榜']
+      # 回复内容
+      message: |  #由于是QQ消息 所以并不能使用PlaceholderAPI (这里是个特例 就这两个可以)
+        充值排行榜
+        1. %mczf_ranktop_1_name% -　%mczf_ranktop_1_amount%元
+        2. %mczf_ranktop_2_name% -　%mczf_ranktop_2_amount%元
+        3. %mczf_ranktop_3_name% -　%mczf_ranktop_3_amount%元
+        4. %mczf_ranktop_4_name% -　%mczf_ranktop_4_amount%元
+        5. %mczf_ranktop_5_name% -　%mczf_ranktop_5_amount%元
+    # 复读机
+    follower:
+      # 标识符
+      identifier: ['复读机']
+      # 回复内容
+      message: '复读机'
+    # 互相问候
+    hello:
+      # 标识符
+      identifier: ['你好','你好呀']
+      # 回复内容
+      message: '你也好'
+    # 变量测试
+    variable-test:
+      # 标识符
+      identifier: ['变量测试','测试变量']
+      # 回复内容
+      message: |
+        发送者: %sender%
+        发送者QQ: %sender_qq%
+        发送内容: %message%

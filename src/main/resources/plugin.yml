@@ -1,0 +1,12 @@
+main: com.mczhifu.qqbot.BukkitMain
+name: MczfQQBot
+version: '1.0.0'
+api-version: '1.13'
+description: '为Mczf提供QQ群充值以及通知的机器人'
+
+author:
+  - msg_dw
+
+# 依赖
+depend:
+  - Mczf
