@@ -3,6 +3,7 @@ package com.mczhifu.qqbot
 import com.mczhifu.mczf.enumerate.PaywayType
 import com.mczhifu.mczf.kit.Kit
 import com.mczhifu.mczf.kit.KitManager
+import com.mczhifu.mczf.pack.PlayerPack
 import com.mczhifu.mczf.util.NetworkUtil
 import net.mamoe.mirai.Bot
 import net.mamoe.mirai.event.subscribeMessages
@@ -57,11 +58,12 @@ class MczfBot(var qqId: Long, var qqPassword: String, deviceFile: File) {
             always {
                 var msg = replyMap[message.contentToString()]
                 if (!msg.isNullOrEmpty()){
-                    reply(PlaceholderUtil.placeholder(com.mczhifu.mczf.message.Message.set(msg)
+                    reply(com.mczhifu.mczf.message.Message.set(msg)
                         .parse("%sender%", senderName)
                         .parse("%sender_qq%", sender.id.toString())
                         .parse("%message%", message.contentToString())
-                        .toString()))
+                        .parsePlaceholder(PlayerPack("这是一个不存在的玩家"))
+                        .toString())
                 }
             }
         }

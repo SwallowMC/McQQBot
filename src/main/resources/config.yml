@@ -47,7 +47,7 @@ qq-group:
       # 标识符是Ａｐ
       identifier: ['充值榜','充值排行','充值排行榜','氪金榜','氪金排行','氪金排行榜','土豪榜']
       # 回复内容
-      message: |  #由于是QQ消息 所以并不能使用PlaceholderAPI (这里是个特例 就这两个可以)
+      message: |  #可以使用PlaceholderAPI 但由于是QQ消息 所以无法解析玩家变量
         充值排行榜
         1. %mczf_ranktop_1_name% -　%mczf_ranktop_1_amount%元
         2. %mczf_ranktop_2_name% -　%mczf_ranktop_2_amount%元
