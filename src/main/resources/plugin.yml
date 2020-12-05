@@ -1,12 +1,11 @@
-main: com.mczhifu.qqbot.BukkitMain
-name: MczfQQBot
-version: '1.0.0'
-api-version: '1.13'
-description: '为Mczf提供QQ群充值以及通知的机器人'
+main: ${project.group}.boot.PluginBoot
 
-author:
-  - msg_dw
+name: ${project.name}
+version: ${project.version}
+author: msg_dw
 
-# 依赖
-depend:
-  - Mczf
+api-version: 1.13
+
+lib-download: true
+lib-version: ${taboolib.tabooLibVersion}
+loader-version: ${taboolib.loaderVersion}

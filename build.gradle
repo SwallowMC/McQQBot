@@ -1,38 +1,58 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
-    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'io.izzel.taboolib' version '1.2'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.0'
+    id 'net.kyori.blossom' version '1.1.0'
 }
 
-apply plugin: 'java'
-apply plugin: 'com.github.johnrengelman.shadow'
+group = 'pro.sandiao'
+version = '1.0.0'
 
-group 'com.mczhifu'
-version '1.0.0'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+taboolib {
+    tabooLibVersion = '5.44'
+    loaderVersion = '2.8'
+    classifier = null
+}
 
 repositories {
-    jcenter()
-    mavenLocal()
     mavenCentral()
-    maven{ url = 'http://lss233.littleservice.cn/repositories/minecraft' }
+    jcenter()
 }
 
 dependencies {
-    compileOnly 'com.mczhifu:Mczf:1.0.0'
-    compileOnly 'org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT'
-    implementation "net.mamoe:mirai-core-qqandroid:1.3.3"
+    compile 'ink.ptms.core:v11600:11600:all'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib'
+
+    compileOnly 'net.mamoe:mirai-core-qqandroid:1.3.3'
+
+    compileOnly fileTree(dir: 'libs', includes: ['*.jar'])
+}
+
+processResources {
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml'){
+        expand(
+            project: project,
+            taboolib: taboolib,
+        )
+    }
+}
+
+blossom {
+
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-shadowJar {
-    manifest {
-
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
