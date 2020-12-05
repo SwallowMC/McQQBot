@@ -3,6 +3,7 @@ main: ${project.group}.boot.PluginBoot
 name: ${project.name}
 version: ${project.version}
 author: msg_dw
+description: 'Minecraft QQ机器人'
 
 api-version: 1.13
 

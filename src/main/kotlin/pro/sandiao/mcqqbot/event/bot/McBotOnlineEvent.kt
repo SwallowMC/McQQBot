@@ -1,12 +1,10 @@
-package pro.sandiao.mcqqbot.event
+package pro.sandiao.mcqqbot.event.bot
 
-import net.mamoe.mirai.message.MessageEvent
-import org.bukkit.event.Event
+import net.mamoe.mirai.event.events.BotOnlineEvent
 import org.bukkit.event.HandlerList
-import pro.sandiao.mcqqbot.McQQBot
+import pro.sandiao.mcqqbot.event.McBotEvent
 
-class BotReceiveMessageEvent(val bot: McQQBot, val messageEvent: MessageEvent) : Event() {
-
+class McBotOnlineEvent(botOnlineEvent: BotOnlineEvent) : McBotEvent(botOnlineEvent) {
     override fun getHandlers(): HandlerList {
         return getHandlerList()!!
     }
