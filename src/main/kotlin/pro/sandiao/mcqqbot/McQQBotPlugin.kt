@@ -8,6 +8,7 @@ import net.mamoe.mirai.utils.BotConfiguration
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import pro.sandiao.mcqqbot.logger.LogType
+import pro.sandiao.mcqqbot.skript.BotSkriptAddon
 import pro.sandiao.mcqqbot.util.MinecraftLoginSolver
 import java.io.File
 import java.util.logging.Logger
@@ -17,6 +18,7 @@ object McQQBotPlugin : Plugin() {
     val logger: Logger = plugin.logger
     val dataFolder: File = plugin.dataFolder
     var mcQQBot: McQQBot? = null
+    var botSkriptAddon: BotSkriptAddon? = null
 
     @TInject("config.yml")
     lateinit var config : TConfig
@@ -44,6 +46,10 @@ object McQQBotPlugin : Plugin() {
 
     override fun onEnable() {
         logger.info { "Plugin QQBotPlugin is starting" }
+
+        if (Bukkit.getPluginManager().getPlugin("Skript") != null){
+            botSkriptAddon = BotSkriptAddon()
+        }
 
         loadPlugin(Bukkit.getConsoleSender())
     }

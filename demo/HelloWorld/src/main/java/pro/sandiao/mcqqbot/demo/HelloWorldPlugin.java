@@ -8,6 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import pro.sandiao.mcqqbot.event.bot.McBotOnlineEvent;
 import pro.sandiao.mcqqbot.event.message.McMessageEvent;
 
+/**
+ * Bukkit轻量级
+ */
 public class HelloWorldPlugin extends JavaPlugin implements Listener {
 
     @Override
