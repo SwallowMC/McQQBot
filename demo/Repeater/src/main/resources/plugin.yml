@@ -1,0 +1,9 @@
+main: pro.sandiao.mcqqbot.repeater.RepeaterPlugin
+
+name: Repeater
+version: 1.0-SNAPSHOT
+api-version: '1.13'
+author: 'msg_dw'
+
+depend: 
+  - McQQBot
