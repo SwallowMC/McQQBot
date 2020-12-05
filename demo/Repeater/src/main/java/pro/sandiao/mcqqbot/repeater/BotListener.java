@@ -1,16 +1,16 @@
 package pro.sandiao.mcqqbot.repeater;
 
+import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Events;
 import net.mamoe.mirai.event.ListeningStatus;
 import net.mamoe.mirai.event.SimpleListenerHost;
 import net.mamoe.mirai.message.MessageEvent;
-import pro.sandiao.mcqqbot.McQQBotPlugin;
 
 public class BotListener extends SimpleListenerHost {
 
-    public BotListener() {
-        Events.registerEvents(McQQBotPlugin.INSTANCE.getMcQQBot().getBot(), this);
+    public BotListener(Bot bot) {
+        Events.registerEvents(bot, this);
     }
 
     @EventHandler
