@@ -17,7 +17,7 @@ object McQQBotPlugin : Plugin() {
 
     val logger: Logger = plugin.logger
     val dataFolder: File = plugin.dataFolder
-    var mcQQBot: McQQBot? = null
+    lateinit var mcQQBot: McQQBot
     var botSkriptAddon: BotSkriptAddon? = null
 
     @TInject("config.yml")
@@ -69,7 +69,9 @@ object McQQBotPlugin : Plugin() {
         botConfig.loginSolver = MinecraftLoginSolver
         botConfig.protocol = loginType
 
-        mcQQBot?.close()
+        mcQQBot = McQQBot(0L, "", botConfig)
+
+        mcQQBot.close()
 
         val qqcode = config.getLong("bot.qq-code")
         val qqpassword = config.getString("bot.qq-password")
@@ -81,6 +83,6 @@ object McQQBotPlugin : Plugin() {
 
         mcQQBot = McQQBot(qqcode, qqpassword, botConfig)
 
-        mcQQBot!!.login()
+        mcQQBot.login()
     }
 }

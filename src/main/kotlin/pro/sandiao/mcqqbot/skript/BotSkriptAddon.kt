@@ -9,7 +9,7 @@ class BotSkriptAddon {
     val skriptAddon: SkriptAddon = Skript.registerAddon(McQQBotPlugin.plugin)
 
     init {
-        skriptAddon.loadClasses("pro.sandiao.mcqqbot.skript", "event", "effect", "expressions")
+        skriptAddon.loadClasses("pro.sandiao.mcqqbot.skript", "event", "conditions", "effect", "expressions")
         McQQBotPlugin.logger.info { "Hook Skript" }
     }
 }
