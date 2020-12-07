@@ -15,7 +15,7 @@ class ExprMessage : SimpleExpression<String>() {
 
     companion object {
         init {
-            Skript.registerExpression(ExprMessage::class.java, String::class.java, ExpressionType.SIMPLE, "[the] [bot( |-)]message")
+            Skript.registerExpression(ExprMessage::class.java, String::class.java, ExpressionType.SIMPLE, "[the] bot( |-)message")
         }
     }
 
@@ -24,8 +24,9 @@ class ExprMessage : SimpleExpression<String>() {
     }
 
     override fun get(e: Event?): Array<String>? {
-        e as McMessageEvent
-        return arrayOf(e.messageContent)
+        if (e is McMessageEvent)
+            return arrayOf(e.messageContent)
+        return arrayOf()
     }
 
     override fun isSingle(): Boolean {

@@ -34,7 +34,7 @@ class ExprGroupCode : SimpleExpression<String>() {
     }
 
     override fun get(e: Event?): Array<String>? {
-        e as McMessageEvent
+        if (e is McMessageEvent)
         if (e.messageEvent is GroupMessageEvent)
             return arrayOf(e.messageEvent.group.id.toString())
         return arrayOf()

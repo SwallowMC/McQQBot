@@ -27,7 +27,7 @@ class EvtBotMessage : SkriptEvent() {
     }
 
     override fun check(event: Event?): Boolean {
-        return true
+        return event is McMessageEvent
     }
 
     override fun toString(event: Event?, debug: Boolean): String {

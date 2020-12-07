@@ -1,8 +1,7 @@
 package pro.sandiao.mcqqbot.command
 
-import io.izzel.taboolib.module.command.base.BaseCommand
-import io.izzel.taboolib.module.command.base.BaseMainCommand
-import io.izzel.taboolib.module.command.base.SubCommand
+import io.izzel.taboolib.module.command.base.*
+import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import pro.sandiao.mcqqbot.McQQBotPlugin
 import pro.sandiao.mcqqbot.util.MinecraftLoginSolver
@@ -21,5 +20,37 @@ class Commands : BaseMainCommand() {
             sender.sendMessage("验证中...")
         else
             sender.sendMessage("现在不需要验证哦!")
+    }
+
+    @SubCommand(description = "机器人发送消息", permission = "mcqqbot.command.send")
+    val send = object : BaseSubCommand(){
+        override fun getArguments(): Array<Argument> {
+            return arrayOf(
+                    Argument("group/friend") { listOf("group", "friend") },
+                    Argument("code") {McQQBotPlugin.mcQQBot.getGroups().map { it.id.toString() }},
+                    Argument("message...")
+            )
+        }
+        override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>) {
+            val code: Long
+            try {
+                code = args[1].toLong()
+            } catch (e: NumberFormatException) {
+                sender.sendMessage("请输入正确的code(群号/QQ号)")
+                return
+            }
+            val stringBuilder = StringBuilder()
+            args.forEachIndexed {i, s ->
+                if (i > 1) {
+                    stringBuilder.append(s)
+                    stringBuilder.append(' ')
+                }
+            }
+            when (args[0].toLowerCase()){
+                "group" -> McQQBotPlugin.mcQQBot.sendMessageToGroup(code, stringBuilder.toString())
+                "friend" -> McQQBotPlugin.mcQQBot.sendMessageToFriend(code, stringBuilder.toString())
+                else -> sender.sendMessage("发送类型只能为group(发送给群)和friend(发送给好友)")
+            }
+        }
     }
 }

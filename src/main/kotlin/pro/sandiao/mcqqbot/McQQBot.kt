@@ -67,7 +67,7 @@ class McQQBot(val qqcode: Long, val password: String, val botConfig: BotConfigur
      * @param friend QQ号
      * @param message 信息
      */
-    fun sendMessageToFriend(friend: Long, message: String){
+    fun sendMessageToFriend(friend: Long, message: String) {
         sendMessageToFriend(friend, PlainText(message))
     }
 
@@ -77,7 +77,7 @@ class McQQBot(val qqcode: Long, val password: String, val botConfig: BotConfigur
      * @param friend QQ号
      * @param message 信息
      */
-    fun sendMessageToFriend(friend: Long, message: Message){
+    fun sendMessageToFriend(friend: Long, message: Message) {
         bot.async {
             if (bot.isOnline) bot.getFriend(friend).sendMessage(message)
         }

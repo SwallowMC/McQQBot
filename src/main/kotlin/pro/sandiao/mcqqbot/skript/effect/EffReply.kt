@@ -24,8 +24,10 @@ class EffReply : Effect() {
     }
 
     override fun execute(e: Event?) {
-        e as McMessageEvent
-        e.reply(greetings.getSingle(e)!!)
+        if (e is McMessageEvent)
+            e.reply(greetings.getSingle(e)!!)
+        else
+            Skript.error("bot reply 只能在 on bot message 中使用")
     }
 
     override fun toString(e: Event?, debug: Boolean): String {

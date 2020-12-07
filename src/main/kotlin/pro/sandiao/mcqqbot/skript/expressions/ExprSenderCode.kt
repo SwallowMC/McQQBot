@@ -24,8 +24,9 @@ class ExprSenderCode : SimpleExpression<String>() {
     }
 
     override fun get(e: Event?): Array<String>? {
-        e as McMessageEvent
-        return arrayOf(e.senderCode.toString())
+        if (e is McMessageEvent)
+            return arrayOf(e.senderCode.toString())
+        return arrayOf()
     }
 
     override fun isSingle(): Boolean {
