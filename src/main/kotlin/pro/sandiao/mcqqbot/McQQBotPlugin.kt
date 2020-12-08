@@ -2,6 +2,8 @@ package pro.sandiao.mcqqbot
 
 import io.izzel.taboolib.loader.Plugin
 import io.izzel.taboolib.module.config.TConfig
+import io.izzel.taboolib.module.dependency.Dependencies
+import io.izzel.taboolib.module.dependency.Dependency
 import io.izzel.taboolib.module.dependency.TDependency
 import io.izzel.taboolib.module.inject.TInject
 import net.mamoe.mirai.utils.BotConfiguration
@@ -13,6 +15,27 @@ import pro.sandiao.mcqqbot.util.MinecraftLoginSolver
 import java.io.File
 import java.util.logging.Logger
 
+private const val MIRAI_REPO = "https://dl.bintray.com/him188moe/mirai/"
+private const val KOTLIN_REPO = "https://kotlin.bintray.com/kotlinx/"
+
+@Dependencies(
+        Dependency(maven = "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.0.1", mavenRepo = KOTLIN_REPO),
+        Dependency(maven = "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.0.1", mavenRepo = KOTLIN_REPO),
+        Dependency(maven = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.0", mavenRepo = KOTLIN_REPO),
+        Dependency(maven = "org.jetbrains.kotlinx:kotlinx-io:0.1.16", mavenRepo = KOTLIN_REPO),
+        Dependency(maven = "org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.16", mavenRepo = KOTLIN_REPO),
+        Dependency(maven = "org.jetbrains.kotlinx:kotlinx-serialization-protobuf-jvm:1.0.1", mavenRepo = KOTLIN_REPO),
+        Dependency(maven = "io.ktor:ktor-client-cio-jvm:1.4.1", mavenRepo = TDependency.MAVEN_REPO),
+        Dependency(maven = "io.ktor:ktor-client-core-jvm:1.4.1", mavenRepo = TDependency.MAVEN_REPO),
+        Dependency(maven = "io.ktor:ktor-http-cio-jvm:1.4.1", mavenRepo = TDependency.MAVEN_REPO),
+        Dependency(maven = "io.ktor:ktor-utils-jvm:1.4.1", mavenRepo = TDependency.MAVEN_REPO),
+        Dependency(maven = "io.ktor:ktor-network-tls-jvm:1.4.1", mavenRepo = TDependency.MAVEN_REPO),
+        Dependency(maven = "io.ktor:ktor-io-jvm:1.4.1", mavenRepo = TDependency.MAVEN_REPO),
+        Dependency(maven = "io.ktor:ktor-network-jvm:1.4.1", mavenRepo = TDependency.MAVEN_REPO),
+        Dependency(maven = "net.mamoe:mirai-core:1.3.3", mavenRepo = MIRAI_REPO),
+        Dependency(maven = "net.mamoe:mirai-core-qqandroid:1.3.3", mavenRepo = MIRAI_REPO)
+)
+
 object McQQBotPlugin : Plugin() {
 
     val logger: Logger = plugin.logger
@@ -22,27 +45,6 @@ object McQQBotPlugin : Plugin() {
 
     @TInject("config.yml")
     lateinit var config : TConfig
-
-    private const val MIRAI_REPO = "https://dl.bintray.com/him188moe/mirai/"
-    private const val KOTLIN_REPO = "https://kotlin.bintray.com/kotlinx/"
-
-    override fun onLoad() {
-        TDependency.requestLib("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.0.1", KOTLIN_REPO, "")
-        TDependency.requestLib("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.0.1", KOTLIN_REPO, "")
-        TDependency.requestLib("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.0", KOTLIN_REPO, "")
-        TDependency.requestLib("org.jetbrains.kotlinx:kotlinx-io:0.1.16", KOTLIN_REPO, "")
-        TDependency.requestLib("org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.16", KOTLIN_REPO, "")
-        TDependency.requestLib("org.jetbrains.kotlinx:kotlinx-serialization-protobuf-jvm:1.0.1", KOTLIN_REPO, "")
-        TDependency.requestLib("io.ktor:ktor-client-cio-jvm:1.4.1", TDependency.MAVEN_REPO, "")
-        TDependency.requestLib("io.ktor:ktor-client-core-jvm:1.4.1", TDependency.MAVEN_REPO, "")
-        TDependency.requestLib("io.ktor:ktor-http-cio-jvm:1.4.1", TDependency.MAVEN_REPO, "")
-        TDependency.requestLib("io.ktor:ktor-utils-jvm:1.4.1", TDependency.MAVEN_REPO, "")
-        TDependency.requestLib("io.ktor:ktor-network-tls-jvm:1.4.1", TDependency.MAVEN_REPO, "")
-        TDependency.requestLib("io.ktor:ktor-io-jvm:1.4.1", TDependency.MAVEN_REPO, "")
-        TDependency.requestLib("io.ktor:ktor-network-jvm:1.4.1", TDependency.MAVEN_REPO, "")
-        TDependency.requestLib("net.mamoe:mirai-core:1.3.3", MIRAI_REPO, "")
-        TDependency.requestLib("net.mamoe:mirai-core-qqandroid:1.3.3", MIRAI_REPO, "")
-    }
 
     override fun onEnable() {
         logger.info { "Plugin QQBotPlugin is starting" }
