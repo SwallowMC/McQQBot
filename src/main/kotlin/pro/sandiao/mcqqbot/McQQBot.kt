@@ -12,6 +12,8 @@ import net.mamoe.mirai.message.data.Message
 import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.utils.BotConfiguration
 import org.bukkit.Bukkit
+import org.bukkit.scheduler.BukkitRunnable
+import pro.sandiao.mcqqbot.event.McBotEvent
 import pro.sandiao.mcqqbot.event.McMemberJoinRequestEvent
 import pro.sandiao.mcqqbot.event.McNewFriendRequestEvent
 import pro.sandiao.mcqqbot.event.bot.McBotNickChangedEvent
@@ -36,29 +38,37 @@ class McQQBot(val qqcode: Long, val password: String, val botConfig: BotConfigur
 
     private fun Bot.messageListener() {
         this.subscribeAlways<BotOnlineEvent> {
-            Bukkit.getPluginManager().callEvent(McBotOnlineEvent(this))
+            callEvent(McBotOnlineEvent(this))
         }
         this.subscribeAlways<BotNickChangedEvent> {
-            Bukkit.getPluginManager().callEvent(McBotNickChangedEvent(this))
+            callEvent(McBotNickChangedEvent(this))
         }
         this.subscribeAlways<MemberJoinRequestEvent> {
-            Bukkit.getPluginManager().callEvent(McMemberJoinRequestEvent(this))
+            callEvent(McMemberJoinRequestEvent(this))
         }
         this.subscribeAlways<NewFriendRequestEvent> {
-            Bukkit.getPluginManager().callEvent(McNewFriendRequestEvent(this))
+            callEvent(McNewFriendRequestEvent(this))
         }
         this.subscribeAlways<FriendMessageEvent> {
-            Bukkit.getPluginManager().callEvent(McFriendMessageEvent(this))
+            callEvent(McFriendMessageEvent(this))
         }
         this.subscribeAlways<GroupMessageEvent> {
-            Bukkit.getPluginManager().callEvent(McGroupMessageEvent(this))
+            callEvent(McGroupMessageEvent(this))
         }
         this.subscribeAlways<TempMessageEvent> {
-            Bukkit.getPluginManager().callEvent(McTempMessageEvent(this))
+            callEvent(McTempMessageEvent(this))
         }
         this.subscribeAlways<MessageEvent> {
-            Bukkit.getPluginManager().callEvent(McMessageEvent(this))
+            callEvent(McMessageEvent(this))
         }
+    }
+
+    fun callEvent(event: McBotEvent){
+        object: BukkitRunnable(){
+            override fun run() {
+                Bukkit.getPluginManager().callEvent(event);
+            }
+        }.runTask(McQQBotPlugin.plugin)
     }
 
     /**
