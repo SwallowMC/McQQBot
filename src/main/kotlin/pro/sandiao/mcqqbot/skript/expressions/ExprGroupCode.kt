@@ -6,8 +6,13 @@ import ch.njol.skript.lang.ExpressionType
 import ch.njol.skript.lang.SkriptParser
 import ch.njol.skript.lang.util.SimpleExpression
 import ch.njol.util.Kleenean
+import net.mamoe.mirai.event.events.GroupEvent
 import net.mamoe.mirai.message.GroupMessageEvent
 import org.bukkit.event.Event
+import pro.sandiao.mcqqbot.McQQBot
+import pro.sandiao.mcqqbot.event.McBotEvent
+import pro.sandiao.mcqqbot.event.McMemberJoinEvent
+import pro.sandiao.mcqqbot.event.McMemberLeaveEvent
 import pro.sandiao.mcqqbot.event.message.McMessageEvent
 
 class ExprGroupCode : SimpleExpression<String>() {
@@ -34,9 +39,9 @@ class ExprGroupCode : SimpleExpression<String>() {
     }
 
     override fun get(e: Event?): Array<String>? {
-        if (e is McMessageEvent)
-        if (e.messageEvent is GroupMessageEvent)
-            return arrayOf(e.messageEvent.group.id.toString())
+        if (e is McBotEvent)
+            if (e.botEvent is GroupEvent)
+                return arrayOf(e.botEvent.group.id.toString())
         return arrayOf()
     }
 }

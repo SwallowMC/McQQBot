@@ -13,9 +13,7 @@ import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.utils.BotConfiguration
 import org.bukkit.Bukkit
 import org.bukkit.scheduler.BukkitRunnable
-import pro.sandiao.mcqqbot.event.McBotEvent
-import pro.sandiao.mcqqbot.event.McMemberJoinRequestEvent
-import pro.sandiao.mcqqbot.event.McNewFriendRequestEvent
+import pro.sandiao.mcqqbot.event.*
 import pro.sandiao.mcqqbot.event.bot.McBotNickChangedEvent
 import pro.sandiao.mcqqbot.event.bot.McBotOnlineEvent
 import pro.sandiao.mcqqbot.event.message.McFriendMessageEvent
@@ -37,33 +35,40 @@ class McQQBot(val qqcode: Long, val password: String, val botConfig: BotConfigur
     }
 
     private fun Bot.messageListener() {
-        this.subscribeAlways<BotOnlineEvent> {
+        subscribeAlways<BotOnlineEvent> {
             callEvent(McBotOnlineEvent(this))
         }
-        this.subscribeAlways<BotNickChangedEvent> {
+        subscribeAlways<BotNickChangedEvent> {
             callEvent(McBotNickChangedEvent(this))
         }
-        this.subscribeAlways<MemberJoinRequestEvent> {
+        subscribeAlways<MemberJoinRequestEvent> {
             callEvent(McMemberJoinRequestEvent(this))
         }
-        this.subscribeAlways<NewFriendRequestEvent> {
+        subscribeAlways<NewFriendRequestEvent> {
             callEvent(McNewFriendRequestEvent(this))
         }
-        this.subscribeAlways<FriendMessageEvent> {
+        subscribeAlways<FriendMessageEvent> {
             callEvent(McFriendMessageEvent(this))
         }
-        this.subscribeAlways<GroupMessageEvent> {
+        subscribeAlways<GroupMessageEvent> {
             callEvent(McGroupMessageEvent(this))
         }
-        this.subscribeAlways<TempMessageEvent> {
+        subscribeAlways<TempMessageEvent> {
             callEvent(McTempMessageEvent(this))
         }
-        this.subscribeAlways<MessageEvent> {
+        subscribeAlways<MessageEvent> {
             callEvent(McMessageEvent(this))
         }
+        subscribeAlways<MemberJoinEvent> {
+            callEvent(McMemberJoinEvent(this))
+        }
+        subscribeAlways<MemberLeaveEvent> {
+            callEvent(McMemberLeaveEvent(this))
+        }
+
     }
 
-    fun callEvent(event: McBotEvent){
+    private fun callEvent(event: McBotEvent){
         object: BukkitRunnable(){
             override fun run() {
                 Bukkit.getPluginManager().callEvent(event);

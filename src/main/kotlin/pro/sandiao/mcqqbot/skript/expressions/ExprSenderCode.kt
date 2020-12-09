@@ -8,6 +8,8 @@ import ch.njol.skript.lang.SkriptParser
 import ch.njol.skript.lang.util.SimpleExpression
 import ch.njol.util.Kleenean
 import org.bukkit.event.Event
+import pro.sandiao.mcqqbot.event.McMemberJoinEvent
+import pro.sandiao.mcqqbot.event.McMemberLeaveEvent
 import pro.sandiao.mcqqbot.event.message.McMessageEvent
 
 @Events("bot message")
@@ -26,6 +28,10 @@ class ExprSenderCode : SimpleExpression<String>() {
     override fun get(e: Event?): Array<String>? {
         if (e is McMessageEvent)
             return arrayOf(e.senderCode.toString())
+        if (e is McMemberJoinEvent)
+            return arrayOf(e.memberCode.toString())
+        if (e is McMemberLeaveEvent)
+            return arrayOf(e.memberCode.toString())
         return arrayOf()
     }
 

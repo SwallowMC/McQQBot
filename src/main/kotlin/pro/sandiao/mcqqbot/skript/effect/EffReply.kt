@@ -6,6 +6,8 @@ import ch.njol.skript.lang.Expression
 import ch.njol.skript.lang.SkriptParser
 import ch.njol.util.Kleenean
 import org.bukkit.event.Event
+import pro.sandiao.mcqqbot.event.McMemberJoinEvent
+import pro.sandiao.mcqqbot.event.McMemberLeaveEvent
 import pro.sandiao.mcqqbot.event.message.McMessageEvent
 
 class EffReply : Effect() {
@@ -24,10 +26,10 @@ class EffReply : Effect() {
     }
 
     override fun execute(e: Event?) {
-        if (e is McMessageEvent)
-            e.reply(greetings.getSingle(e)!!)
+        if (e is McMessageEvent || e is McMemberJoinEvent || e is McMemberLeaveEvent)
+            e.javaClass.getMethod("reply", String::class.java).invoke(e, greetings.getSingle(e)!!)
         else
-            Skript.error("bot reply 只能在 on bot message 中使用")
+            Skript.error("bot reply 不能在此使用")
     }
 
     override fun toString(e: Event?, debug: Boolean): String {
