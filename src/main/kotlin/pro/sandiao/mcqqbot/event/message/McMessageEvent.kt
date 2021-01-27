@@ -1,7 +1,7 @@
 package pro.sandiao.mcqqbot.event.message
 
 import kotlinx.coroutines.async
-import net.mamoe.mirai.message.MessageEvent
+import net.mamoe.mirai.event.events.MessageEvent
 import net.mamoe.mirai.message.data.Message
 import net.mamoe.mirai.message.data.PlainText
 import org.bukkit.event.HandlerList
@@ -21,7 +21,7 @@ open class McMessageEvent(val messageEvent: MessageEvent) : McBotEvent(messageEv
     fun reply(message: String) = reply(PlainText(message))
     fun reply(message: Message){
         bot.async {
-            messageEvent.reply(message)
+            messageEvent.subject.sendMessage(message)
         }
     }
 

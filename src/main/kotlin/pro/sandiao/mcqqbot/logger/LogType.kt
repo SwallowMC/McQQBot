@@ -3,7 +3,7 @@ package pro.sandiao.mcqqbot.logger
 import net.mamoe.mirai.utils.DirectoryLogger
 import net.mamoe.mirai.utils.MiraiLogger
 import net.mamoe.mirai.utils.SilentLogger
-import net.mamoe.mirai.utils.monthsToMillis
+// import net.mamoe.mirai.utils.monthsToMillis
 import pro.sandiao.mcqqbot.McQQBotPlugin
 import java.io.File
 
@@ -15,7 +15,7 @@ enum class LogType {
     fun getLogger(identity : String) : MiraiLogger{
         return when (this) {
             CONSOLE -> ConsoleLogger(identity)
-            FILE -> DirectoryLogger(identity, File(McQQBotPlugin.dataFolder, "logs"), 1.monthsToMillis)
+            FILE -> DirectoryLogger(identity, File(McQQBotPlugin.dataFolder, "logs"))
             NONE -> SilentLogger
         }
     }

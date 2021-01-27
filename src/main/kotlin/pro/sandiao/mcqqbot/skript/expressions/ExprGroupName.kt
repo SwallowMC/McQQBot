@@ -7,7 +7,7 @@ import ch.njol.skript.lang.SkriptParser
 import ch.njol.skript.lang.util.SimpleExpression
 import ch.njol.util.Kleenean
 import net.mamoe.mirai.event.events.GroupEvent
-import net.mamoe.mirai.message.GroupMessageEvent
+import net.mamoe.mirai.event.events.GroupMessageEvent
 import org.bukkit.event.Event
 import pro.sandiao.mcqqbot.event.McBotEvent
 import pro.sandiao.mcqqbot.event.McMemberJoinEvent

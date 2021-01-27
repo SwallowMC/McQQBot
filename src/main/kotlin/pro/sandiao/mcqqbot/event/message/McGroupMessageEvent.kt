@@ -1,7 +1,7 @@
 package pro.sandiao.mcqqbot.event.message
 
 import net.mamoe.mirai.contact.Member
-import net.mamoe.mirai.message.GroupMessageEvent
+import net.mamoe.mirai.event.events.GroupMessageEvent
 import net.mamoe.mirai.message.data.At
 import net.mamoe.mirai.message.data.AtAll
 import net.mamoe.mirai.message.data.Message
@@ -20,9 +20,9 @@ class McGroupMessageEvent(groupMessageEvent: GroupMessageEvent) : McMessageEvent
     fun atAll() = reply(AtAll)
     fun atAllReply(message: String) = reply(AtAll + message)
     fun atAllReply(message: Message) = reply(AtAll + message)
-    fun at() = reply(At(group[sender.id]))
-    fun atReply(message: String) = reply(At(group[sender.id]) + message)
-    fun atReply(message: Message) = reply(At(group[sender.id]) + message)
+    fun at() = group[sender.id]?.let { At(it) }?.let { reply(it) }
+    fun atReply(message: String) = group[sender.id]?.let { At(it) }?.plus(message)?.let { reply(it) }
+    fun atReply(message: Message) = group[sender.id]?.let { At(it) }?.plus(message)?.let { reply(it) }
 
     companion object{
         @JvmStatic

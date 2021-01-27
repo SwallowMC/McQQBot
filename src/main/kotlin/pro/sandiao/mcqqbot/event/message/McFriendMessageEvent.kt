@@ -1,6 +1,6 @@
 package pro.sandiao.mcqqbot.event.message
 
-import net.mamoe.mirai.message.FriendMessageEvent
+import net.mamoe.mirai.event.events.FriendMessageEvent
 import org.bukkit.event.HandlerList
 
 class McFriendMessageEvent(friendMessageEvent: FriendMessageEvent) : McMessageEvent(friendMessageEvent) {

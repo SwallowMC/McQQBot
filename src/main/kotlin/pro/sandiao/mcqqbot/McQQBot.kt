@@ -2,13 +2,13 @@ package pro.sandiao.mcqqbot
 
 import kotlinx.coroutines.async
 import net.mamoe.mirai.Bot
+import net.mamoe.mirai.BotFactory
 import net.mamoe.mirai.event.*
 import net.mamoe.mirai.event.events.*
-import net.mamoe.mirai.message.FriendMessageEvent
-import net.mamoe.mirai.message.GroupMessageEvent
-import net.mamoe.mirai.message.MessageEvent
-import net.mamoe.mirai.message.TempMessageEvent
-import net.mamoe.mirai.message.data.Message
+import net.mamoe.mirai.event.events.FriendMessageEvent
+import net.mamoe.mirai.event.events.GroupMessageEvent
+import net.mamoe.mirai.event.events.MessageEvent
+import net.mamoe.mirai.event.events.GroupTempMessageEvent
 import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.utils.BotConfiguration
 import org.bukkit.Bukkit
@@ -20,9 +20,11 @@ import pro.sandiao.mcqqbot.event.message.McFriendMessageEvent
 import pro.sandiao.mcqqbot.event.message.McGroupMessageEvent
 import pro.sandiao.mcqqbot.event.message.McMessageEvent
 import pro.sandiao.mcqqbot.event.message.McTempMessageEvent
+import net.mamoe.mirai.message.data.Message
+import kotlin.coroutines.EmptyCoroutineContext
 
 class McQQBot(val qqcode: Long, val password: String, val botConfig: BotConfiguration) {
-    var bot = Bot(qqcode, password, botConfig)
+    var bot = BotFactory.newBot(qqcode, password, botConfig)
 
     fun isOnline() = bot.isOnline
     fun getGroups() = bot.groups
@@ -35,34 +37,34 @@ class McQQBot(val qqcode: Long, val password: String, val botConfig: BotConfigur
     }
 
     private fun Bot.messageListener() {
-        subscribeAlways<BotOnlineEvent> {
+        globalEventChannel().subscribeAlways(BotOnlineEvent::class, EmptyCoroutineContext, ConcurrencyKind.CONCURRENT) {
             callEvent(McBotOnlineEvent(this))
         }
-        subscribeAlways<BotNickChangedEvent> {
+        globalEventChannel().subscribeAlways(BotNickChangedEvent::class, EmptyCoroutineContext, ConcurrencyKind.CONCURRENT) {
             callEvent(McBotNickChangedEvent(this))
         }
-        subscribeAlways<MemberJoinRequestEvent> {
+        globalEventChannel().subscribeAlways(MemberJoinRequestEvent::class, EmptyCoroutineContext, ConcurrencyKind.CONCURRENT) {
             callEvent(McMemberJoinRequestEvent(this))
         }
-        subscribeAlways<NewFriendRequestEvent> {
+        globalEventChannel().subscribeAlways(NewFriendRequestEvent::class, EmptyCoroutineContext, ConcurrencyKind.CONCURRENT) {
             callEvent(McNewFriendRequestEvent(this))
         }
-        subscribeAlways<FriendMessageEvent> {
+        globalEventChannel().subscribeAlways(FriendMessageEvent::class, EmptyCoroutineContext, ConcurrencyKind.CONCURRENT) {
             callEvent(McFriendMessageEvent(this))
         }
-        subscribeAlways<GroupMessageEvent> {
+        globalEventChannel().subscribeAlways(GroupMessageEvent::class, EmptyCoroutineContext, ConcurrencyKind.CONCURRENT) {
             callEvent(McGroupMessageEvent(this))
         }
-        subscribeAlways<TempMessageEvent> {
+        globalEventChannel().subscribeAlways(GroupTempMessageEvent::class, EmptyCoroutineContext, ConcurrencyKind.CONCURRENT) {
             callEvent(McTempMessageEvent(this))
         }
-        subscribeAlways<MessageEvent> {
+        globalEventChannel().subscribeAlways(MessageEvent::class, EmptyCoroutineContext, ConcurrencyKind.CONCURRENT) {
             callEvent(McMessageEvent(this))
         }
-        subscribeAlways<MemberJoinEvent> {
+        globalEventChannel().subscribeAlways(MemberJoinEvent::class, EmptyCoroutineContext, ConcurrencyKind.CONCURRENT) {
             callEvent(McMemberJoinEvent(this))
         }
-        subscribeAlways<MemberLeaveEvent> {
+        globalEventChannel().subscribeAlways(MemberLeaveEvent::class, EmptyCoroutineContext, ConcurrencyKind.CONCURRENT) {
             callEvent(McMemberLeaveEvent(this))
         }
 
@@ -94,7 +96,9 @@ class McQQBot(val qqcode: Long, val password: String, val botConfig: BotConfigur
      */
     fun sendMessageToFriend(friend: Long, message: Message) {
         bot.async {
-            if (bot.isOnline) bot.getFriend(friend).sendMessage(message)
+            if (bot.isOnline) {
+                bot.getFriendOrFail(friend).sendMessage(message)
+            }
         }
     }
 
@@ -116,7 +120,7 @@ class McQQBot(val qqcode: Long, val password: String, val botConfig: BotConfigur
      */
     fun sendMessageToGroup(group: Long, message: Message){
         bot.async {
-            if (bot.isOnline) bot.getGroup(group).sendMessage(message)
+            if (bot.isOnline) bot.getGroupOrFail(group).sendMessage(message)
         }
     }
 

@@ -32,8 +32,8 @@ private const val KOTLIN_REPO = "https://kotlin.bintray.com/kotlinx/"
         Dependency(maven = "io.ktor:ktor-network-tls-jvm:1.4.1", mavenRepo = TDependency.MAVEN_REPO),
         Dependency(maven = "io.ktor:ktor-io-jvm:1.4.1", mavenRepo = TDependency.MAVEN_REPO),
         Dependency(maven = "io.ktor:ktor-network-jvm:1.4.1", mavenRepo = TDependency.MAVEN_REPO),
-        Dependency(maven = "net.mamoe:mirai-core:1.3.3", mavenRepo = MIRAI_REPO),
-        Dependency(maven = "net.mamoe:mirai-core-qqandroid:1.3.3", mavenRepo = MIRAI_REPO)
+        Dependency(maven = "net.mamoe:mirai-core-api:2.1.1", mavenRepo = MIRAI_REPO),
+        Dependency(maven = "net.mamoe:mirai-core:2.1.1", mavenRepo = MIRAI_REPO)
 )
 
 object McQQBotPlugin : Plugin() {
@@ -47,7 +47,7 @@ object McQQBotPlugin : Plugin() {
     lateinit var config : TConfig
 
     override fun onEnable() {
-        logger.info { "Plugin QQBotPlugin is starting" }
+        logger.info { "搭载超级硬核的 Mirai 2.1.1 的QQ机器人插件正在启动" }
 
         if (Bukkit.getPluginManager().getPlugin("Skript") != null){
             botSkriptAddon = BotSkriptAddon()
@@ -57,7 +57,7 @@ object McQQBotPlugin : Plugin() {
     }
 
     override fun onDisable() {
-        logger.info { "Plugin QQBotPlugin is stopping" }
+        logger.info { "搭载超级硬核的 Mirai 2.1.1 的QQ机器人插件正在停止" }
     }
 
     fun loadPlugin(sender: CommandSender){
